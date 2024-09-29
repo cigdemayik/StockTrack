@@ -1,0 +1,21 @@
+version: '3.4'
+
+services: 
+  sqlserver: 
+    environment: 
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=12811281Ca*+
+    volumes: 
+      - stocktrack_volume:/var/opt/mssql
+    ports: 
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '12811281Ca*+' -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 10s
+      retries: 3  
+  stocktrack_webui:
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+      - "5000:80"

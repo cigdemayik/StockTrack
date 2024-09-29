@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model List<StockTrack.WebUI.Models.ProductModels.ProductModel>
+}
+<div class="card-header">
+    Ürünler
+</div>
+@if (Model.Count <= 0)
+{
+<p class="text-center">Hiç Veri Yok</p> }
+else
+{
+<div class="container-fluid mt-3">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-1">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Ürün Adı:@item.Name</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">Miktarı:@item.Quantity</h2>
+                            <td>
+                                @Html.ActionLink("Satın Al", "ProductPurchase", "Home", new { id = item.Id }, new { @class = "btn btn-warning" })
+                            </td>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}

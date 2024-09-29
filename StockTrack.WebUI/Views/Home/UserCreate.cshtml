@@ -1,0 +1,26 @@
+﻿@{ Layout = "~/Views/Shared/_Layout.cshtml";
+@model StockTrack.WebUI.Models.UserModels.UserCreateModel;
+}
+
+@using (Html.BeginForm("UserCreate", "Home", FormMethod.Post))
+{
+@Html.ValidationSummary(true)
+
+                <div class="card">
+                    <div class="card-header">
+                        User
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control form-control-user" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control form-control-user" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+                </div>}

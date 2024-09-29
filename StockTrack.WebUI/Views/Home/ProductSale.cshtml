@@ -1,0 +1,30 @@
+﻿@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model StockTrack.WebUI.Models.OpetaionModels.ProductSaleModel;
+}
+
+@using (Html.BeginForm("ProductSale", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+@Html.ValidationSummary(true)
+
+                <div class="card">
+                    <div class="card-header">
+                        Ürün Satış
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.ProductId, new { @class = "form-control form-control-user" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Quantity, new { @class = "col-sm-3" })
+                            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control form-control-user" })
+                            @Html.ValidationMessageFor(m => m.Quantity, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Price, new { @class = "col-sm-3" })
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control form-control-user" })
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger" })
+                        </div>
+                        <input type="submit" value="Sat" class="btn btn-primary" />
+                    </div>
+                </div>}

@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  sqlserver:   
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    volumes:
+      - stocktrack_volume:/var/opt/mssql
+    ports:
+      - "1433:1433"
+    networks:
+     - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P '12811281Ca*+' -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 10s
+      retries: 3  
+  stocktrack_webui:
+    image: cigdemayik/stocktrack:v1
+    container_name: stocktrackcontainer
+    build:
+      context: .
+      dockerfile: StockTrack.WebUI/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionString="Server=sqlserver;Database=StockTrack;User Id=sa;Password=12811281Ca*+;"
+    ports:
+      - "5000:80"
+    networks:
+     - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
+volumes:
+  stocktrack_volume:  
